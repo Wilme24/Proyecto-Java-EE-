@@ -1,0 +1,42 @@
+@CHARSET "ISO-8859-1";
+
+.centrar{
+	
+	width: 399%;
+	font-size: 26px;
+	border-radius: 10px;	
+	
+}
+.input-group-addon{
+	color:white;
+}
+.entrar{
+    color: red;
+	width:100%;
+	font-size: 30px;
+	border-radius: 5px;
+}
+.letra{
+	font-size: 15px;
+	width: 200px;	
+}	
+.cuadro{
+	height: 150px;
+	border-radius: 20px;
+	background-color: #337ab7;	
+}
+.boton{
+	height: 100;
+	width: 30%;
+	font-size: 20px;
+	border-radius: 10px;	
+}
+.ui-widget-content{
+	border: none;
+}
+.ui-panelgrid td {
+    border-width: 0px;
+    border-style: none;
+    border-color: inherit;
+    padding: 4px 10px;
+}

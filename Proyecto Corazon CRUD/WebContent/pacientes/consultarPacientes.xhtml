@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<link rel="stylesheet" href="../empleados/estiloMenu.css"></link>
+<link rel="stylesheet" href="../css/bootstrap.css"></link>
+
+</h:head> 
+<body> 
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+
+<p:dialog header="INFORMACIÓN DEL PACIENTE" widgetVar="dlg2" modal="true" height="500" resizable="false" showEffect="explode">
+		<h:form>
+   		 <p:fieldset style="margin-bottom:20px;width: 500px;" >
+        	<p:panel id="panel" >
+	        	<br />
+	        	<f:facet name="footer">
+	            	<p:messages id="msgs" />
+	        	</f:facet>
+	        	
+			   <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Nombres: *</div>	
+	           		  <p:inputText onkeypress="return soloLetras(event)" value="#{PacienteMB.pacienteNuevo.nombresPaciente}"  required="true" style="width:95%" requiredMessage="Campo nombres requerido"  />
+	           </div>
+			   </div>
+			   
+			    <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Apellidos: *</div>	
+	           		  <p:inputText onkeypress="return soloLetras(event)" value="#{PacienteMB.pacienteNuevo.apellidosPaciente}" required="true" style="width:95%" requiredMessage="Campo apellidos requerido"  />
+	          	    </div>
+			   </div>
+			   
+			   <div class="form-group">
+				    <div class="input-group">
+				     	<div class="input-group-addon">Dirección: *</div>	
+			   			<p:inputText value="#{PacienteMB.pacienteNuevo.direccionPaciente}" required="true" style="width:95%" requiredMessage="Campo dirección requerido" />
+			     	</div>
+			   </div>
+			   
+			   <div class="form-group">
+				    <div class="input-group">
+				     	<div class="input-group-addon">Teléfono: *</div>	
+			   			<p:inputText onkeypress="return soloNumeros(event)" value="#{PacienteMB.pacienteNuevo.telefonoPaciente}" required="true" style="width:95%" requiredMessage="Campo teléfono requerido" />
+			     	</div>
+			   </div>
+			   
+			   <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Tipo de documento: *</div>	
+	           		  <p:selectOneMenu value="#{PacienteMB.pacienteNuevo.tipoDocumentoPaciente}" style="width:95%" requiredMessage="Campo tipo de documento requerido">
+	           		  		 <f:selectItem itemLabel="Seleccionar" itemValue="" />
+	           		  		 <f:selectItem itemLabel="Cedula" itemValue="Cedula" />
+	           		  		 <f:selectItem itemLabel="Tarjeta de identidad" itemValue="Tarjeta de identidad" />
+	           		  		 <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte" />
+			          </p:selectOneMenu>
+	          	    </div>
+			   </div>
+			   <div class="form-group">
+				    <div class="input-group">
+				     	<div class="input-group-addon">Número de documento: *</div>	
+			   			<p:inputText onkeypress="return soloNumeros(event)" value="#{PacienteMB.pacienteNuevo.documentoPaciente}" required="true" style="width:95%" requiredMessage="Campo número de documento requerido" />
+			     	</div>
+			   </div>
+			   <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Fecha de nacimiento: *</div>	
+	           		   <p:calendar id="Fecha" style="width:95%" navigator="true" value="#{PacienteMB.pacienteNuevo.fechaNacimientoPaciente}"  showOn="button" maxdate="#{calendarioMb.currentDate}" required="true" requiredMessage="Campo fecha requerido" />
+	           		</div>
+	           </div>
+			    <div class="form-group">
+				    <div class="input-group">
+				     	<div class="input-group-addon">Correo electrónico: *</div>	
+			   			<p:inputText value="#{PacienteMB.pacienteNuevo.correoPaciente}" required="true" style="width:95%" requiredMessage="Campo correo electrónico requerido" />
+			     	</div>
+			   </div>
+        	     <center>
+        	   <p:commandButton update="panel" action="#{PacienteMB.crearPaciente()}" value="Guardar" icon="ui-icon-folder-open"/>
+        	   </center>
+        	</p:panel>
+   		 </p:fieldset>
+	</h:form>
+	</p:dialog> 
+	<h:form>
+	<p:dataTable id="tabla" paginator="true" style="width:114%" rows="9" value="#{PacienteMB.listaPacientes}" styleClass="tamanoTabla" var="fila" >
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="ID: "></p:outputLabel>
+			</f:facet>
+			<p:outputLabel value="#{fila.idPaciente}"> </p:outputLabel>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="NOMBRE: "></p:outputLabel>
+				</f:facet>
+				<p:inputText onkeypress="return soloLetras(event)" value="#{fila.nombresPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="APELLIDO: "></p:outputLabel>
+				</f:facet>
+				<p:inputText onkeypress="return soloLetras(event)" value="#{fila.apellidosPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="FECHA NACIMIENTO "></p:outputLabel>
+				</f:facet>
+				   <p:calendar id="Fecha" style="width:95%" navigator="true" value="#{fila.fechaNacimientoPaciente}"  showOn="button"  required="true" requiredMessage="Campo fecha requerido" />
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="TIPO DE DOCUMENTO"></p:outputLabel>
+				</f:facet>
+				  <p:selectOneMenu value="#{fila.tipoDocumentoPaciente}" style="width:95%" requiredMessage="Campo tipo de documento requerido">
+	           		  		 <f:selectItem itemLabel="Seleccionar" itemValue="" />
+	           		  		 <f:selectItem itemLabel="Cedula" itemValue="Cedula" />
+	           		  		 <f:selectItem itemLabel="Tarjeta de identidad" itemValue="Tarjeta de identidad" />
+	           		  		 <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte" />
+			      </p:selectOneMenu>
+			</center>
+		</p:column>
+			<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="DOCUMENTO: "></p:outputLabel>
+					<p:inputText value="#{PacienteMB.pacienteViejo.documentoPaciente}"/>
+				</f:facet>
+				<p:inputText onkeypress="return soloNumeros(event)" value="#{fila.documentoPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="DIRECCIÓN "></p:outputLabel>
+				</f:facet>
+					<p:inputText value="#{fila.direccionPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="TELÉFONO "></p:outputLabel>
+				</f:facet>
+				<p:inputText onkeypress="return soloNumeros(event)" value="#{fila.telefonoPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="CORREO "></p:outputLabel>
+				</f:facet>
+				<p:inputText value="#{fila.correoPaciente}"> </p:inputText>
+			</center>
+		</p:column>
+		<p:column>
+				<center>
+					<f:facet name="header">
+						<p:commandLink
+							action="#{PacienteMB.consultarEspecialidadPaciente()}"	update="tabla">
+							<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+						</p:commandLink>
+					</f:facet>
+					<h:commandLink action="#{PacienteMB.actualizarPaciente()}">
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}" target="#{PacienteMB.pacienteNuevo}" />
+					</h:commandLink>
+				</center>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="footer">
+						<h:commandLink onclick="dlg2.show();return false;">
+							<h:graphicImage value="/Source/iconos/editar.png"></h:graphicImage>
+						</h:commandLink>
+					</f:facet>
+				</center>
+			</p:column>
+	</p:dataTable>
+</h:form>
+</body> 
+</html>

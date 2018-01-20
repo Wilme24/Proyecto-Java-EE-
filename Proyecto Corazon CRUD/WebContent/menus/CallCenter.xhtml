@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+	<h:head></h:head> 
+<body> 
+<h:form>
+
+	 <h:body>
+		
+	<p:megaMenu orientation="horizontal" style="margin-top:20px">
+    <p:submenu label="Autorizaciones" icon="ui-icon-check">
+        <p:column>
+            <p:submenu label="Gestion Autorizaciones" >
+                <p:menuitem value="Consultar Autorizaciones" target="frame" url="/citas/consultarAutorizaciones.jsf" />
+            </p:submenu>
+            </p:column>
+            </p:submenu>
+ 
+    <p:submenu label="Citas Medicas" icon="ui-icon-document">
+ 
+        <p:column>
+            <p:submenu label="Gestion de Citas">
+                <p:menuitem value="Consultar Cita" target="frame" url="/citas/consultarCitas.jsf"/>
+                <p:menuitem value="Asignar Cita" target="frame" url="/citas/asignarCitas.jsf" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+ 
+    <p:submenu label="Empleados" icon="ui-icon-pencil">
+        <p:column>
+            <p:submenu label="Gestionar Empleados">
+                <p:menuitem value="Consultar Empleados" target="frame" url="/empleados/consultarEmpleados.jsf" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+ 
+    <p:submenu label="Especialidad" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Gestionar Especialidad">
+                <p:menuitem value="Consultar Especialidad" target="frame" url="/empleados/consultarEspecialidades.jsf" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+    
+    <p:submenu label="Horario" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Gestionar Horario">
+                <p:menuitem value="Consultar Horario" target="frame" url="/empleados/consultarHorarios.jsf" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+    
+    <p:submenu label="Paciente" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Gestion de Pacientes">
+                <p:menuitem value="Consultar Paciente" target="frame" url="/pacientes/consultarPacientes.jsf" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+    
+    <p:submenu label="Rol" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Gestionar Perfil">
+                <p:menuitem value="Consultar Perfil" target="frame" url="/empleados/consultarRoles.jsf" />
+            </p:submenu>
+        </p:column>
+    </p:submenu>
+    
+    <p:submenu label="Servicios" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Gestionar Tipo de Servicio">
+                <p:menuitem value="Consultar Tipo de Servicio" target="frame" url="/citas/consultarTiposServicios.jsf" />
+            </p:submenu>
+        </p:column>
+        
+    </p:submenu>
+    
+    <p:submenu label="Reportes" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Consultas">
+                <p:menuitem value="Consultar Reportes" target="frame" url="/empleados/consultarReportes.jsf" />
+            </p:submenu>
+        </p:column>
+        
+    </p:submenu>
+    
+    <p:submenu label="Configuracion" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Ajustes">
+                <p:menuitem value="Consultar mis Datos" target="frame" url="/empleados/actualizarMisDatos.jsf" />
+                <p:menuitem value="Cerrar Sesion" actionListener="#{UsuarioMB.cerrarSesion()}" action="/paginaPrincipal/index.jsf?faces-redirect=true" />
+            </p:submenu>
+        </p:column>
+        
+    </p:submenu>
+ 
+</p:megaMenu>
+
+	<br />
+		<iframe name="frame" width="100%" height="700px" frameborder="0">
+		
+			</iframe>
+
+	</h:body>
+   
+</h:form>
+</body> 
+</html>
+	

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head>
+<body>
+<center>
+<br />
+<br />
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+
+</script>
+	<h:form prependId="false">
+    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+		<p:fieldset style="margin-bottom:20px;width: 490px;">
+			<p:panel id="panel">
+
+				<f:facet name="footer">
+					<p:messages id="msgs" />
+				</f:facet>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Usuario: *</div>
+						<p:inputText required="true"
+							requiredMessage="Campo nombre requerido" value="#{emailMB.usuario}" style="width:95%" />
+							
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Asunto: *</div>
+						<p:inputText action = "#{emailMB.enviarCorreos()}" required="true"
+							requiredMessage="Campo nombre requerido" style="width:95%" value="#{emailMB.asunto}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Mensaje: *</div>
+						
+					</div>
+						<h3 style="margin-top: 0"></h3>
+							 <p:inputTextarea rows="6" cols="56" value="#{emailMB.mensaje}" />
+						     <h:outputText id="display" />
+				</div>
+			</p:panel>
+			<center>
+				<p:commandButton update="panel" value="Enviar"
+					icon="ui-icon-folder-open" action="#{emailMB.enviarCorreos()}" />
+			</center>
+		</p:fieldset>
+	</h:form>
+	</center>
+</body>
+</html>

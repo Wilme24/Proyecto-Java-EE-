@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../empleados/estiloMenu.css" rel="stylesheet"
+		type="text/css" />
+	<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head>
+<body>
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+
+	<p:dialog header="INFORMACIÓN DE LA CITA" widgetVar="dlg2" modal="true"
+		height="300" resizable="false" showEffect="explode">
+		<h:form prependId="false">
+
+			<p:fieldset style="margin-bottom:20px;width: 490px;">
+				<p:panel id="panel">
+
+					<f:facet name="footer">
+						<p:messages id="msgs" />
+					</f:facet>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Tipo de cita: *</div>
+							<p:selectOneMenu style="width:95%" required="true"
+								requiredMessage="Campo tipo de cita requerido" value="#{CitaMB.idTipo}">
+								<f:selectItem itemLabel="Seleccionar" itemValue="" />
+								<f:selectItems value="#{TipoServicioMB.listaTipos}" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Fecha cita</div>
+							<p:calendar id="datetime" value="#{CitaMB.citaNueva.fechaCita}"
+								pattern="MM/dd/yyyy HH:mm:ss" required="true"
+								requiredMessage="Campo fecha requerido" />
+							<p:commandButton update="doctores" action="#{CitaMB.consultarDisponibilidadEmpleado()}"
+							value="Consultar disponibilidad" icon="ui-icon-folder-open" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Doctor: *</div>
+							<p:selectOneMenu style="width:95%"  id="doctores">
+								<f:selectItem itemLabel="Seleccionar" itemValue="" />
+									<f:selectItems value="#{CitaMB.listaEmpleado}" var="com"
+						itemValue="#{com.idEmpleado}" itemLabel="#{com.documentoEmpleado}" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					
+				</p:panel>
+				<center>
+					<p:commandButton update="panel" action="#{CitaMB.crearCita()}"
+						value="Guardar" icon="ui-icon-folder-open" />
+				</center>
+			</p:fieldset>
+		</h:form>
+	</p:dialog>
+
+	<h:form>
+		<p:dataTable id="tabla" value="#{CitaMB.listaCita}" var="fila"
+			paginator="true" style="width:50%" rows="9"
+			styleClass="tamanoTabla">
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="FECHA: "></p:outputLabel>
+
+					</f:facet>
+				</center>
+				<p:calendar id="Fecha" value="#{fila.fechaCita}" showOn="button" />
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="ESTADO: "></p:outputLabel>
+
+					</f:facet>
+				</center>
+				<p:selectOneMenu value="#{fila.estadoCita}" id="esta">
+					<f:selectItem itemLabel="Seleccionar" itemValue="" />
+					<f:selectItem itemValue="Activa" itemLabel="Activa"  />
+					<f:selectItem itemValue="Ocupada" itemLabel="Ocupada" />
+				</p:selectOneMenu>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="TIPO DE CITA: "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:selectOneMenu value="#{fila.tiposervicio.idTipoServicio}" id="tip">
+					<f:selectItem itemLabel="Seleccionar" itemValue="" />
+					<f:selectItems value="#{TipoServicioMB.listaTipoServicio}" var="com"
+						itemValue="#{com.idTipoServicio}" itemLabel="#{com.nombreTipoServicio}" />
+				</p:selectOneMenu>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="Médico "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel value="#{fila.empleado.documentoEmpleado}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:commandLink>
+							<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+						</p:commandLink>
+					</f:facet>
+				</center>
+				<h:commandLink action="#{CitaMB.actualizarCita()}" >
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}"
+							target="#{CitaMB.citaVieja}" />
+				</h:commandLink>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<h:commandLink onclick="dlg2.show();return false;">
+							<h:graphicImage value="/Source/iconos/editar.png"></h:graphicImage>
+						</h:commandLink>
+					</f:facet>
+				</center>
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+</body>
+</html>

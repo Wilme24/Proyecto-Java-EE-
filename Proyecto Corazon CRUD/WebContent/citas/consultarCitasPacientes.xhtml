@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<link rel="stylesheet" href="../css/bootstrap.css"></link>
+
+</h:head>
+<body>
+	<h:form>
+	  <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+	<center>
+		<p:fieldset style="margin-bottom:20px;width: 400px;">
+			<p:panel id="panel">
+				<br />
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Documento:</div>
+						<p:inputText style="width:95%" id="documento" 
+							value="#{UsuarioMB.usuarioLogeo.paciente.documentoPaciente}" disabled="true"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Nombre:</div>
+						<p:inputText style="width:95%" disabled="true" id="disabledTextInput"
+							value="#{UsuarioMB.usuarioLogeo.paciente.nombresPaciente}" />
+					</div>
+				</div>
+				<center>
+					<p:commandButton update="tabla" value="Buscar"
+						action="#{UsuarioMB.consultarCitasPac()}"
+						icon="ui-icon-folder-open" />
+				</center>
+			</p:panel>
+		</p:fieldset>
+		</center>
+		<p:dataTable paginator="true" id="tabla"
+			value="#{UsuarioMB.listaCita}" var="fila" rows="10" style="width:98%"
+			styleClass="tamanoTabla">
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="FECHA: "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel value="#{fila.fechaCita}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="ESTADO: "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel value="#{fila.estadoCita}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="TIPO CITA "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel
+					value="#{fila.autorizacion.descripcionAutorizacion} "></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="DOCTOR "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel
+					value="#{fila.empleado.apellidosEmpleado} #{fila.empleado.nombresEmpleado}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<h:commandLink action="#{CitaMB.actualizarCitaPaciente()}">
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}"
+							target="#{CitaMB.citaVieja}" />
+					</h:commandLink>
+				</center>
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-sacale=1.0" />
+	<link href="estilo.css" rel="stylesheet" type="text/css" />
+
+</h:head>
+	<body>
+		<h:form id="form">       
+		<br /><br /><br /> 
+	    <p:growl id="msgs" showDetail="true" />
+	    <center>
+	    
+	    <h3 style="margin-top:0">Servicios Médicos</h3>
+	    <p:accordionPanel style="width: 80%;height: 40%;text-align: justify;">
+	        <p:tab  title="Cardiología Clínica">
+	            <h:panelGrid columns="2" cellpadding="10" >
+	                <p:graphicImage  value="/Source/cardiologia.jpg" />
+	                <h:outputText
+	                    value="Con el objetivo de prevenir y tratar las diferentes enfermedades 
+	                    cardiovasculares desde que éstas se manifiestan hasta su tratamiento, 
+	                    el servicio de Cardiología Clínica del Instituto del Corazón de Bucaramanga, 
+	                    cuenta con un equipo de cardiólogos adultos y pediátricos con experiencia y 
+	                    dedicación que brindan al paciente una atención oportuna, cálida y con calidad." />
+	            </h:panelGrid>
+	        </p:tab>
+	        <p:tab title="Hemodinámica">
+	            <h:panelGrid columns="2" cellpadding="10">
+	                <p:graphicImage value="/Source/hemodinamia.jpg"/>
+	                <h:outputText value="Conocer con exactitud el funcionamiento de venas y arterias 
+	                dentro del desempeño natural del corazón es el principio fundamental de la Cardiología 
+	                Intervencionista, la cual es en la actualidad la principal alternativa terapéutica para 
+	                aquellos pacientes que registran enfermedad coronaria. El servicio de Hemodinámica del 
+	                Instituto del Corazón de Bucaramanga cuenta con un equipo profesional de amplia experiencia, 
+	                quienes realizan procedimientos diagnósticos y tratamientos mínimamente invasivos en pacientes 
+	                con este tipo de patologías cardiovasculares. Este servicio cuenta con 5 modernas salas, dotadas 
+	                con equipos de tecnología moderna en el ámbito del intervencionismo cardiovascular."/>
+	            </h:panelGrid>
+	        </p:tab>
+	        <p:tab title="Electrofisiología">
+	            <h:panelGrid columns="2" cellpadding="10">
+	                <p:graphicImage value="/Source/electrofisiologia.jpg" />
+	                <h:outputText  value="El corazón funciona como una bomba mecánica y como un órgano eléctrico. 
+	                Puede latir porque produce impulsos eléctricos. Estos impulsos viajan a través de las vías eléctricas 
+	                del corazón, provocando la contracción muscular que bombea sangre por todo el cuerpo. Normalmente, estos 
+	                impulsos proceden de una zona pequeña del corazón llamada nodo sinoauricular (SA). Esta zona está situada 
+	                en la cámara superior derecha, o aurícula derecha. Cuando el nodo SA envía señales a las dos cámaras superiores 
+	                del corazón (las aurículas), estas se contraen al mismo tiempo. La contracción auricular llena las dos cámaras 
+	                inferiores (los ventrículos) de sangre. Cuando el impulso eléctrico viaja a través de los ventrículos estos se 
+	                contraen, lo que hace que se bombee la sangre al cuerpo. La contracción del musculo cardíaco (ventrículos) es 
+	                lo que percibimos como latido. Tras un breve descanso, el ciclo empieza de nuevo." />
+	            </h:panelGrid>
+	        </p:tab>
+	         <p:tab title="Vascular Periférico:">
+	            <h:panelGrid columns="2" cellpadding="10">
+	                <p:graphicImage value="/Source/vascular.png" />
+	                <h:outputText value="El servicio Vascular Periférico y de Flebología del Instituto del Corazón de Bucaramanga 
+	                realiza la prevención, diagnóstico, tratamiento y rehabilitación de las enfermedades arteriales, venosas y 
+	                linfáticas en pacientes adultos y pediátricos. Se cuenta con especialistas de una amplia experiencia en esta 
+	                área, quienes realizan desde los estudios vasculares no invasivos arteriales y venosos hasta procedimientos 
+	                quirúrgicos complejos." />
+	            </h:panelGrid>
+	        </p:tab>
+	        <p:tab title="Medicina Interna">
+	            <h:panelGrid columns="2" cellpadding="10">
+	                <p:graphicImage value="/Source/medicina.jpg" />
+	                <h:outputText value="Departamento enfocado en la atención integral de pacientes adultos con patologías médicas, 
+	                acompañamiento a especialidades médico - quirúrgicas y seguimiento en consulta externa, con base en alta calidad 
+	                científica, principios éticos y componente humano, además con práctica docente asistencial e investigación. 
+	                En el servicio de Medicina Interna contamos con los más prestigiosos profesionales en el área para ofrecer un 
+	                manejo a diversas patologías que presentan los pacientes garantizando un manejo oportuno, eficiente y un trato 
+	                humanizado por cada uno de nuestros medicos con el fin de que cada uno de nuestros pacientes se sienta satisfecho 
+	                con la atención recibida. " />
+	            </h:panelGrid>
+	        </p:tab>
+	        <p:tab title="Cirugía Cardiovascular:">
+	            <h:panelGrid columns="2" cellpadding="10">
+	                <p:graphicImage value="/Source/cirugia.jpg" />
+	                <h:outputText value="El servicio de Cirugía Cardiovascular del Instituto del Corazón de Bucaramanga ofrece procedimientos 
+	                quirúrgicos como tratamiento de las cardiopatías congénitas, de las más simples hasta las más complejas y en todos los grupos 
+	                de edad, desde el recién nacido prematuro hasta el adulto que tenga un defecto cardiovascular. Cuenta con un grupo multidisciplinario 
+	                de especialistas en las diferentes áreas de la cardiología pediátrica, con una amplia experiencia para la realización de las siguientes 
+	                cirugías de corazón en niños: cierre de defectos del tabique ventricular, corrección de defectos del septo aurículo-ventricular, corrección 
+	                de la tetralogía de fallot, corrección de la transposición de grandes arterias (switch arterial), operación de ross y todas las etapas de 
+	                paliación del corazón univentricular, entre otros. " />
+	            </h:panelGrid>
+	        </p:tab>
+	    </p:accordionPanel>
+	    </center>
+    </h:form>
+	</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head>
+
+<h:body>
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+
+	<h:form prependId="false">
+
+		<p:fieldset style="margin-bottom:20px;width: 530px; margin-left:150px">
+			<p:panel id="panel" header="INFORMACIÓN DE LA CITA">
+
+				<f:facet name="footer">
+					<p:messages id="msgs" />
+				</f:facet>
+
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Número de Identificación</div>
+						<p:inputText value="#{UsuarioMB.usuarioLogeo.paciente.documentoPaciente}"  disabled="true"></p:inputText>
+							<p:commandButton update="panel" value="Buscar"
+						icon="ui-icon-folder-open"
+						action="#{UsuarioMB.asignar()}" />
+					</div>
+					
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">Autorizaciones</div>
+						<p:selectOneMenu id="auto" value="#{CitaMB.idAutorizacion}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{UsuarioMB.listaAu}" var="com"
+								itemValue="#{com.idAutorizacion}"
+								itemLabel="#{com.nitAutorizacion}" />
+						</p:selectOneMenu>
+					</div>
+					</div>
+					
+					<p:commandButton update="tabla" id="Tablita" value="Buscar"
+						icon="ui-icon-folder-open"  action="#{CitaMB.consultarCitaAuto()}"   />
+				
+				
+				<p:dialog header="INFORMACIÓN DE LA CITA" widgetVar="dlg2" 
+						height="300" resizable="false" showEffect="explode">
+
+					<p:dataTable id="tabla" paginator="true" value="#{CitaMB.listaCita1}" var="fila"
+					 style="width:100%" rows="9"
+						styleClass="tamanoTabla">
+						<p:column>
+							<center>
+								<f:facet name="header">
+									<p:outputLabel value="FECHA: "></p:outputLabel>
+
+								</f:facet>
+							</center>
+							<p:outputLabel id="Fecha" value="#{fila.fechaCita}" />
+						</p:column>
+						<p:column>
+							<center>
+								<f:facet name="header">
+									<p:outputLabel value="ESTADO: "></p:outputLabel>
+
+								</f:facet>
+							</center>
+							<p:outputLabel value="#{fila.estadoCita}" id="esta"/>
+						</p:column>
+						<p:column>
+							<center>
+								<f:facet name="header">
+									<p:outputLabel value="TIPO DE CITA: "></p:outputLabel>
+								</f:facet>
+							</center>
+							<p:outputLabel value="#{fila.tiposervicio.idTipoServicio}"
+								id="tip" />
+						</p:column>
+						<p:column>
+							<center>
+								<f:facet name="header">
+									<p:outputLabel value="Medico "></p:outputLabel>
+								</f:facet>
+							</center>
+							<p:outputLabel value="#{fila.empleado.idEmpleado}" id="espec" />
+								
+						</p:column>
+						<p:column>
+							<center>
+								<f:facet name="header">
+									<p:commandLink>
+										<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+									</p:commandLink>
+								</f:facet>
+							</center>
+							<h:commandLink action="#{CitaMB.asignarCitaPaciente()}">
+								<h:graphicImage value="/Source/iconos/actualizar.png" />
+								<f:setPropertyActionListener value="#{fila}"
+									target="#{CitaMB.citaVieja}" />
+							</h:commandLink>
+						</p:column>
+					</p:dataTable>
+</p:dialog>
+			
+			</p:panel>
+			<center></center>
+		</p:fieldset>
+	</h:form>
+</h:body>
+</html>

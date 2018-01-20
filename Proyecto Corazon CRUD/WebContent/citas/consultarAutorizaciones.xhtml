@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<link href="../empleados/estiloMenu.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head> 
+<body> 
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+<p:dialog header="INFORMACIÓN DE LA AUTORIZACIÓN" widgetVar="dlg2" modal="true" height="300" resizable="false" showEffect="explode">
+		<h:form>
+	    	 <p:fieldset style="margin-bottom:20px;width: 490px;">
+	        	<p:panel id="panel" >
+		        	<br />
+		        	<f:facet name="footer">
+		            	<p:messages id="msgs" autoUpdate="true" closable="true" />
+		        	</f:facet>
+		        	  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon">Nit: *</div>	
+		           		   <p:inputText id="Nit"  value="#{AutorizacionMB.nuevaAutorizacion.nitAutorizacion}"  required="true" requiredMessage="Campo fecha requerido"></p:inputText>
+		           		</div>
+				   </div>
+				   <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Paciente: *</div>	
+	           		    <p:selectOneMenu style="width:90%" value="#{AutorizacionMB.documento}">
+	           		  		 <f:selectItem itemLabel="Seleccionar" itemValue="" />
+ 							 <f:selectItems value="#{PacienteMB.listaPacientes}" var="com" itemValue="#{com.idPaciente}" itemLabel="#{com.nombresPaciente}" />
+			          	</p:selectOneMenu>
+	           		</div>
+			   </div>
+				   <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon">Fecha de vencimiento: *</div>	
+		           		   <p:calendar id="Fecha" navigator="true" value="#{AutorizacionMB.nuevaAutorizacion.fechaExpedicionAutorizacion}"  showOn="button" mindate="#{calendarioMb.currentDate}" required="true" requiredMessage="Campo fecha requerido"/>
+		           		</div>
+				   </div>
+				    <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon">Descripción: *</div>	
+		           		  <p:selectOneMenu style="width:90%" value="#{AutorizacionMB.nombreTipoServicio}">
+	           		  		 <f:selectItem itemLabel="Seleccionar" itemValue="" />
+	           		  		 <f:selectItems value="#{TipoServicioMB.listaTipoServicio}" var="com" itemValue="#{com.nombreTipoServicio}" itemLabel="#{com.nombreTipoServicio}" />
+			          	</p:selectOneMenu>
+		          	    </div>
+				   </div>
+	        	</p:panel>
+	        	<center>
+	        		<p:commandButton action="#{AutorizacionMB.crearAutorizacion()}" update="panel" value="Guardar" icon="ui-icon-folder-open"/>
+	        	</center>
+   		 	</p:fieldset>
+	    </h:form>	
+	</p:dialog>  
+	<h:form>
+	<p:dataTable paginator="true" id="tabla" value="#{AutorizacionMB.listaAutorizacion}"
+			var="fila" rows="10" style="width:53.5%" styleClass="tamanoTabla">
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="NIT: "></p:outputLabel>
+				<p:inputText value="#{AutorizacionMB.viejaAutorizacion.nitAutorizacion}"></p:inputText>
+			</f:facet>
+			<p:inputText value="#{fila.nitAutorizacion}"></p:inputText>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="FECHA DE VENCIMIENTO "></p:outputLabel>
+				</f:facet>
+				<p:calendar id="Fecha" value="#{fila.fechaExpedicionAutorizacion}" showOn="button"  />
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="DESCRIPCIÓN: "></p:outputLabel>
+				</f:facet>
+				<p:selectOneMenu style="width:125px;margin-left:0px;" value="#{fila.descripcionAutorizacion}">
+				  <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+				  <f:selectItems value="#{TipoServicioMB.listaTipoServicio}" var="com" itemValue="#{com.nombreTipoServicio}" itemLabel="#{com.nombreTipoServicio}" />
+			    </p:selectOneMenu>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="PACIENTE: "></p:outputLabel>
+				</f:facet>
+			   <p:outputLabel value="#{fila.paciente.documentoPaciente}"></p:outputLabel>
+			</center>
+		</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:commandLink
+							action="#{AutorizacionMB.consultarAutorizacionEspecifica()}"
+							update="tabla">
+							<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+						</p:commandLink>
+					</f:facet>
+					
+				</center>
+				<h:commandLink action="#{AutorizacionMB.actualizarAutorizacion()}" >
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}"
+							target="#{AutorizacionMB.nuevaAutorizacion}" />
+					</h:commandLink>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<h:commandLink onclick="dlg2.show();return false;">
+							<h:graphicImage value="/Source/iconos/editar.png"></h:graphicImage>
+						</h:commandLink>
+					</f:facet>
+				</center>
+			</p:column>
+	  </p:dataTable>
+	</h:form>
+</body> 
+</html>

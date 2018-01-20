@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 0.8em;
+}
+.ui-datatable {
+    width: 20%;
+}
+.ui-datatable table {
+    border-collapse: collapse;
+    width: 5%;
+}

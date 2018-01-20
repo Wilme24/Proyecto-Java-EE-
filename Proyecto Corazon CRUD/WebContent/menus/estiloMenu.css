@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+#bloque{  
+	width: 100%;
+}
+#bloque .A, #bloque .B{  
+	display: inline-block;
+	top: 0;
+}
+#bloque .B{ 
+	position: absolute;	
+	width:80%;
+	height:"9500px";
+	margin-top: 170px;
+}
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 0.8em;
+}
+.logo{
+	width: 60%;
+	height: 60%;
+} 

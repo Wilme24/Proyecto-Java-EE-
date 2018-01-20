@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<link href="estiloMenu.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head> 
+<body> 
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+
+<p:dialog header="INFORMACIÓN DE LOS HORARIOS" widgetVar="dlg2" modal="true" height="310" resizable="false" showEffect="explode">
+		<h:form prependId="false">
+	
+   		 <p:fieldset style="margin-bottom:20px;width: 450px;">
+        	<p:panel id="panel" >
+	        	<br />
+	        	<f:facet name="footer">
+	            	<p:messages id="msgs" autoUpdate="true" closable="true" />
+	        	</f:facet>
+	        	<div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Empleado: *</div>	
+	           		    <p:selectOneMenu style="width:90%" value="#{horarioMB.idHorario}">
+	           		  		 <f:selectItem itemLabel="Seleccionar" itemValue="" />
+	           		  		 <f:selectItems value="#{empleadoMB.listaEmpleado}" var="com" itemValue="#{com.idEmpleado}" itemLabel="#{com.nombresEmpleado}" />
+			          	</p:selectOneMenu>
+	           		</div>
+			   </div>
+			   <div class="form-group">
+				    <div class="input-group" >
+				      <div class="input-group-addon" >Fecha inicial: *</div>	
+	           		   <p:calendar id="FechaI" style="width:90%" value="#{horarioMB.nuevoHorario.fechaInicialHorario}"  showOn="button" mindate="#{calendarioMb.currentDate}" required="true" requiredMessage="Campo fecha requerido" />
+	           		</div>
+			   </div>
+			    <div class="form-group">
+				    <div class="input-group" >
+				      <div class="input-group-addon">Fecha final: *    </div>	
+	           		   <p:calendar style="width:90%" id="FechaF" value="#{horarioMB.nuevoHorario.fechaFinalHorario}"   showOn="button" mindate="#{calendarioMb.currentDate}" required="true" requiredMessage="Campo fecha requerido" />
+	           		</div>
+			   </div>
+			    <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Hora inicial: *    </div>	
+	           		    <p:calendar id="timeI" style="width:90%" value="#{horarioMB.nuevoHorario.horaInicialHorario}"  pattern="HH:mm" timeOnly="true"  required="true" requiredMessage="Campo hora inicial requerido"/>
+	           		</div>
+			   </div>
+			    <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon">Hora final: *      </div>	
+	           		    <p:calendar id="timeF" style="width: 100px;"  pattern="HH:mm" timeOnly="true" value="#{horarioMB.nuevoHorario.horaFinalHorario}"  required="true" requiredMessage="Campo hora final requerido" />
+	           		</div>
+			   </div>
+        	</p:panel>
+        	<center>
+        		<p:commandButton action="#{horarioMB.crearHorario()}" update="panel" value="Guardar" icon="ui-icon-folder-open"/>
+        	</center>
+   		 </p:fieldset>
+	</h:form>
+	</p:dialog>  
+	<h:form>
+	<p:dataTable paginator="true" id="tabla" value="#{horarioMB.listaHorario}"
+			var="fila" style="width:75.7%" rows="9" styleClass="tamanoTabla">
+	
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="FECHA INICIAL: "></p:outputLabel>
+				</f:facet>
+				<p:calendar id="Fecha" value="#{fila.fechaInicialHorario}" showOn="button"  />
+			</center>
+		</p:column>
+			<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="FECHA FINAL: "></p:outputLabel>
+				</f:facet>
+				<p:calendar id="FechaF" value="#{fila.fechaFinalHorario}" showOn="button"   />
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="HORA INICIAL: "></p:outputLabel>
+				</f:facet>
+				
+					<p:calendar id="timeI" value="#{fila.horaInicialHorario}" pattern="HH:mm" timeOnly="true" />
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="HORA FINAL: "></p:outputLabel>
+				</f:facet>
+				
+					<p:calendar id="timeF" value="#{fila.horaFinalHorario}" pattern="HH:mm" timeOnly="true" />
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="EMPLEADO: "></p:outputLabel>
+				</f:facet>
+				
+					<p:outputLabel id="dEmpleado" value="#{fila.empleado.documentoEmpleado}"></p:outputLabel>
+			</center>
+		</p:column>
+		<p:column>
+			<center>
+				<f:facet name="header">
+					<p:outputLabel value="EMPLEADO: "></p:outputLabel>
+				</f:facet>
+				
+					<p:outputLabel id="nEmpleado" value="#{fila.empleado.nombresEmpleado}" ></p:outputLabel>
+			</center>
+		</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:commandLink
+							action="#{horarioMB.consultarHorario()}"
+							update="tabla">
+							<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+						</p:commandLink>
+					</f:facet>
+					
+				</center>
+				<h:commandLink action="#{horarioMB.crearHorario()}" >
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}"
+							target="#{empleadoMB.nuevaEmpleado}" />
+					</h:commandLink>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<h:commandLink onclick="dlg2.show();return false;">
+							<h:graphicImage value="/Source/iconos/editar.png"></h:graphicImage>
+						</h:commandLink>
+					</f:facet>
+				</center>
+			</p:column>
+	</p:dataTable>
+		
+	</h:form>
+</body> 
+</html>

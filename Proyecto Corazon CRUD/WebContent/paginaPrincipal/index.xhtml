@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="http://fonts.googleapis.com/css?family=Droid+Serif"
+		rel="stylesheet" type="text/css" />
+	<link href="estiloMenu.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../css/bootstrap.css"></link>
+
+</h:head>
+
+<h:outputScript library="js"
+	name="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" />
+
+<h:outputScript>
+			$(document).ready(function(){
+			var i=0;
+				while(i&lt;1500)
+			    {
+			        $(".div1").fadeToggle();
+			        $(".div1").fadeToggle("slow");
+			        $(".div1").fadeToggle(3000);
+			        i++;
+			    }
+			});
+	</h:outputScript>
+<h:body>
+
+	<p:dialog header="INICIAR SESIÓN" widgetVar="dlg2" modal="true"
+		height="300" resizable="false" showEffect="explode">
+		<h:form>
+			<p:fieldset style="margin-bottom:2px;width: 490px;">
+				<p:panel id="panel">
+					<br />
+					<f:facet name="footer">
+						<p:messages id="msgs" autoUpdate="true" closable="true" />
+					</f:facet>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Usuario: *</div>
+							<p:inputText style="width:95%"
+								value="#{UsuarioMB.usuarioNuevo.usuario}" placeholder="Amount"
+								id="usuario" requiredMessage="Campo usuario requerido" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Contraseña: *</div>
+							<p:password style="width:95%"
+								value="#{UsuarioMB.usuarioNuevo.contrasena}"
+								placeholder="Amount" id="contrasena" required="true"
+								requiredMessage="Campo contraseña requerido"></p:password>
+						</div>
+					</div>
+				</p:panel>
+				<center>
+					<p:commandButton action="#{UsuarioMB.Loguearse()}" update="panel"
+						value="Ingresar" icon="ui-icon-folder-open" />
+				</center>
+			</p:fieldset>
+		</h:form>
+	</p:dialog>
+	<h:form>
+		<center>
+			<table>
+				<tr>
+					<td><div id="div1" class="div1">
+							<h:graphicImage value="/Source/logo1.PNG" styleClass="logo" />
+						</div></td>
+					<td><h:graphicImage value="/Source/logo2.PNG"
+							styleClass="logo" /></td>
+				</tr>
+			</table>
+			<br />
+		</center>
+		<div>
+
+			<nav>
+			<ul>
+				<li><a href="inicio.jsf" target="frame"> <img
+						src="../Source/iconos/inicio.png"
+						style="width: 30px; height: 30px;"></img>INICIO
+				</a></li>
+				<li><a href="nosotros.jsf" target="frame"><img
+						src="../Source/iconos/nosotros.png"
+						style="width: 30px; height: 30px;"></img>NOSOTROS</a></li>
+				<li><a href="servicios.jsf" target="frame"><img
+						src="../Source/iconos/servicio.png"
+						style="width: 30px; height: 30px;"></img>SERVICIOS</a></li>
+				<li><a href="FormularioCorreo.jsf" target="frame"><img
+						src="../Source/iconos/contactenos.png"
+						style="width: 30px; height: 30px;"></img>CONTÁCTENOS</a></li>
+				<li><h:commandLink onclick="dlg2.show();return false;">
+						<img src="../Source/iconos/iniciar.png"
+							style="width: 30px; height: 30px;"></img>INICIAR SESION</h:commandLink></li>
+			</ul>
+			</nav>
+
+		</div>
+		<br />
+		<br />
+		<section> <iframe name="frame" width="100%" height="1500px"
+			frameborder="0"> </iframe> </section>
+	</h:form>
+	<script type="text/javascript">
+	
+	</script>
+</h:body>
+</html>

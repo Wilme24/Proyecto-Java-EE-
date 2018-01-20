@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="estiloMenu.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../css/bootstrap.css"></link>
+</h:head>
+<body>
+
+<script type="text/javascript">
+		function valid() {
+			location.reload(true);
+			}
+		function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 &amp; !tecla_especial){
+		            return false;
+		        }
+		    }
+		function soloNumeros(e) { // 1
+		    tecla = (document.all) ? e.keyCode : e.which; // 2
+		    if (tecla==8) return true; // 3
+		    patron = /\d/; // Solo acepta números
+		    te = String.fromCharCode(tecla); // 5
+		    return patron.test(te); // 6
+		}
+	</script>
+
+	<p:dialog header="INFORMACIÓN DE LA ESPECIALIDAD" widgetVar="dlg2"
+		modal="true" height="200" resizable="false" showEffect="explode">
+		<h:form onsubmit="return formulario(this)">
+			<p:fieldset style="margin-bottom:20px;width: 400px;">
+				<p:panel id="panel">
+					<br />
+					<f:facet name="footer">
+						<p:messages id="msgs" />
+					</f:facet>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">Nombre: *</div>
+							<p:inputText style="width:95%" onkeypress="return soloLetras(event)" id="nombre"
+								value="#{especialidadMB.nuevaEspecialidad.nombreEspecialidad}"
+								required="true" requiredMessage="Campo nombre requerido" />
+						</div>
+					</div>
+					<center>
+						<p:commandButton update="panel" value="Guardar"
+							action="#{especialidadMB.crearEspecialidad()}"
+							icon="ui-icon-folder-open" />
+					</center>
+				</p:panel>
+			</p:fieldset>
+		</h:form>
+	</p:dialog>
+
+	<h:form>
+		<f:facet name="footer">
+			<p:messages id="msgs" />
+		</f:facet>
+		<p:dataTable id="tabla" value="#{especialidadMB.listaEspecialidad}"
+			var="fila" paginator="true" style="width:31.2%" rows="9" styleClass="tamanoTabla">
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="ID: "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel value="#{fila.idEspecialidad}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="NOMBRE: "></p:outputLabel>
+						<p:inputText id="nombreEspecifica"
+						onkeypress="return soloLetras(event)"	value="#{especialidadMB.viejaEspecialidad.nombreEspecialidad}">
+						</p:inputText>
+					</f:facet>
+				</center>
+				<p:inputText value="#{fila.nombreEspecialidad}" >
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:outputLabel value="ESTADO: "></p:outputLabel>
+					</f:facet>
+				</center>
+				<p:outputLabel value="#{fila.estado}"></p:outputLabel>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="header">
+						<p:commandLink
+							action="#{especialidadMB.consultarEspecialidadEspecifica()}"
+							update="tabla">
+							<p:graphicImage value="/Source/iconos/buscar.png"></p:graphicImage>
+						</p:commandLink>
+					</f:facet>
+					<h:commandLink action="#{especialidadMB.actualizarEspecialidad()}">
+						<h:graphicImage value="/Source/iconos/actualizar.png" />
+						<f:setPropertyActionListener value="#{fila}"
+							target="#{especialidadMB.nuevaEspecialidad}" />
+					</h:commandLink>
+				</center>
+			</p:column>
+			<p:column>
+				<center>
+					<f:facet name="footer">
+						<h:commandLink onclick="dlg2.show();return false;">
+							<h:graphicImage value="/Source/iconos/editar.png"></h:graphicImage>
+						</h:commandLink>
+					</f:facet>
+				</center>
+				<p:commandLink action="#{especialidadMB.eliminarEspecialidad()}"
+					update="tabla">
+					<p:graphicImage value="/Source/iconos/eliminar.png"></p:graphicImage>
+					<f:setPropertyActionListener value="#{fila}"
+						target="#{especialidadMB.viejaEspecialidad}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</body>
+</html>

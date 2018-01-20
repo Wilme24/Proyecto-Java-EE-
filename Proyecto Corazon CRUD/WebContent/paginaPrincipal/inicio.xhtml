@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link rel="stylesheet" href="estilos.css" />
+</h:head> 
+	<h:body>
+	<br /><br /><br />
+		<center>
+			 <h:panelGroup>
+				<p:galleria value="#{imagesView.images}" var="image" panelWidth="700" panelHeight="313" >
+							<p:graphicImage value="/Source/#{image}" title="#{image}" />
+				</p:galleria>
+			 </h:panelGroup>
+	    </center>
+	</h:body> 
+</html>
